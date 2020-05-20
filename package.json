@@ -8,11 +8,13 @@
     "start-dev": "nodemon ./indexjs --exec babel-node -e js",
     "test": "set DEBUG=* & nodemon ./index.js --exec babel-node -e js"
   },
-"author": "",
+  "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.3",
+    "pg": "^8.2.1",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
