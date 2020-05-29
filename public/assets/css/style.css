@@ -1,0 +1,1 @@
+@media only screen and (min-width: 375px){.container{background:red}}@media only screen and (max-width: 375px){.container{background:blue}}*,::after,::before{margin:0;padding:0;box-sizing:border-box}

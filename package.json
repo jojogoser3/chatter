@@ -5,14 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./index.js --exec",
-    "start-dev": "nodemon ./indexjs --exec babel-node -e js",
-    "test": "set DEBUG=* & nodemon ./index.js --exec babel-node -e js"
+    "start-dev": "nodemon ./index.js --exec babel-node -e js",
+    "test": "set DEBUG=* & nodemon ./index.js --exec babel-node -e js",
+    "dev": "concurrently \"npm run start-dev\" \"npm run build\"",
+    "build": "webpack --mode production"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
     "nodemon": "^2.0.3",
     "pg": "^8.2.1",
     "socket.io": "^2.3.0"
