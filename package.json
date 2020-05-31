@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "browserslist": [
+    "defaults",
+    "not ie < 11",
+    "last 2 versions",
+    "> 1%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ],
   "scripts": {
     "start": "nodemon ./index.js --exec",
     "start-dev": "nodemon ./index.js --exec babel-node -e js",
@@ -22,6 +30,7 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "autoprefixer": "^9.8.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
@@ -29,6 +38,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^3.5.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "postcss-loader": "^3.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",

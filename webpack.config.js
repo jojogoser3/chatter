@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
 	mode: 'development',
 	watch: true,
-	entry: { 
+	entry: {
 		main: './src/main.js',
 		style: './src/style.js',
 	},
@@ -20,19 +20,29 @@ module.exports = {
 				exclude: /(node_modules|bower_components)/,
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
-				  	use: [{
+					use: [{
 						loader: 'css-loader',
 						options: {
-							url: false,
-							sourceMap: true
+							importLoaders: 1,
+							// localIdentName: '[local]_[hash:base64:5]'
 						}
-					}, 
+					},
+					{
+						loader: 'postcss-loader',
+						options: {
+							sourceMap: true,
+							config: {
+								path: 'postcss.config.js'
+							}
+						}
+					},
 					{
 						loader: 'sass-loader',
 						options: {
 							sourceMap: true,
 						}
-					}]
+					},
+					]
 				}),
 			},
 			{
@@ -44,6 +54,6 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.WatchIgnorePlugin([path.join(__dirname, 'node_modules')]),
-		new ExtractTextPlugin('/css/[name].css')
+		new ExtractTextPlugin('/css/[name].css'),
 	],
 };

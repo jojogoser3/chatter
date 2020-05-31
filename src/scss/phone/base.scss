@@ -1,3 +1,49 @@
+@import 'login.scss';
+
 .container {
-    background: blue;
+    background: #292929;
+
+    header {
+        padding: 0px 35px;
+        justify-content: center;
+        text-align: center;
+
+        .page-back {
+            position: absolute;
+            left: 5%;
+            background: red;
+            height: 32px;
+            width: 32px;
+        }
+
+        .head-title {
+            min-width: 115px;
+            flex-flow: column;
+
+            h1 {
+                font-size: 14px;
+            }
+
+            .sub-title {
+                font-size: 10px;
+            }
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 9%;
+            background: red;
+            width: 32px;
+            height: 32px;
+        }
+
+        nav {}
+    }
+
+    .content {
+        padding: 35px 25px 0px 25px;
+
+    }
+
+    .footer {}
 }
