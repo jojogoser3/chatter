@@ -37,7 +37,24 @@
             height: 32px;
         }
 
-        nav {}
+        nav {
+            display: none;
+            position: absolute;
+            top: 110px;
+            width: 100%;
+            ul {
+                li {
+                    height: 60px;
+                    border-bottom: 1px solid black;
+                    padding: 0px 25px;
+                    justify-content: space-between;
+                    align-items: center;
+                    a {
+
+                    }
+                }
+            }
+        }
     }
 
     .content {

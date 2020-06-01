@@ -21,8 +21,13 @@ app.engine('hbs', handlebars({
 
 app.get('/', (req, res) => {
 //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-    res.render('login', {layout : 'index'});
+    res.sendFile(__dirname + '/views/login.html');
 });
+
+app.get('/chatrooms', (req, res) => {
+    //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
+        res.render('login', {layout : 'index'});
+    });
 
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);

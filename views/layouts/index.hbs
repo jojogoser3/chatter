@@ -14,14 +14,19 @@
 <body>
     <div class="container">
         <header>
-            <div class="page-back"></div>
             <div class="head-title">
-                <h1>Enter chatbox</h1>
+                <h1>Chatrooms</h1>
                 <span class="sub-title">suck a cock</span>
             </div>
-            <div class="dropdown"></div>
             <nav>
+                <ul>
+                    <li class="selected"><a href="">ROOMS</a><i class="far fa-comment-alt"></i></li>
+                    <li><a href="">USERS</a><i class="fas fa-user-friends"></i></li>
+                    <li><a href="">QUIT</a><i class="fas fa-sign-out-alt"></i></li>
+                </ul>
             </nav>
+            <div class="page-back"></div>
+            <div class="dropdown"></div>
         </header>
 
         <div class="content">
@@ -37,7 +42,43 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-    <script src="/assets/dropdown.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var i = 0;
+            nav = $('nav');
+
+            $(window).resize(function () {
+                if ($(window).width() > 750) {
+                    nav.show();
+                    i = 0;
+                }
+                else {
+                    nav.hide();
+                }
+            });
+
+            $('.dropdown').click(function () {
+                nav.show();
+                i++;
+
+                $('.content').click(function () {
+                    nav.hide();
+                    i = 0;
+                })
+
+                if (i == 2) {
+                    nav.hide();
+                    i = 0;
+                }
+
+            })
+
+
+
+        })
+
+    </script>
 </body>
 
 </html>
