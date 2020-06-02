@@ -89,7 +89,48 @@
         button {
             border: none;
         }
+
+        .content-inner {
+            .users {
+                
+                .user {
+                    display: flex;   
+                    align-items: center;      
+
+                    .user-name {
+                        justify-content: space-between;
+                        display: flex;
+                        align-items: center;
+                        .status {
+                            width: 13px;
+                            height: 13px;
+                            border: 1px solid black;
+                            border-radius: 30px;
+                            margin-right: 16px;
+                        }
+
+                        .no-disturb {
+                            background: red;
+                        }
+
+                        .online {
+                            background: green;
+                        }
+
+                        .away {
+                            background: orange;
+                        }
+
+                    }
+                    .room-cur {
+                        color: #333333;
+                    }
+                }
+            }
+        }
     }
+
+    
 
     footer {
         min-height: 110px;

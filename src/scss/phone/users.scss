@@ -1,0 +1,27 @@
+.content-inner {
+    .users {
+
+        .user {
+            justify-content: space-between;    
+            .user-name {
+                color: white;
+                
+    
+                p {
+    
+                }
+    
+                .status {}
+            }
+    
+            .cur-room {
+                color: #333333;
+            }
+            &:not(:first-child){
+                margin-top: 20px;
+            }
+        }
+       
+    }
+    
+}

@@ -15,19 +15,26 @@ app.set('view engine', 'hbs');
 
 app.engine('hbs', handlebars({
     layoutsDir: __dirname + '/views/layouts',
+    partialsDir: __dirname + '/views/partials',
     //new configuration parameter
     extname: 'hbs'
 }));
 
 app.get('/', (req, res) => {
-//Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
+    //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
     res.sendFile(__dirname + '/views/login.html');
 });
 
 app.get('/chatrooms', (req, res) => {
     //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-        res.render('login', {layout : 'index'});
-    });
+    res.render('login', { layout: 'index' });
+});
+
+app.get('/users', (req, res) => {
+    //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
+    res.render('users', { layout: 'index' });
+});
+
 
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
@@ -57,7 +64,7 @@ tech.on('connection', (socket) => {
         socket.join(data.room);
         tech.in(data.room).emit('message', `New user joined ${data.room}`)
     })
-    
+
     socket.on('message', (data) => {
         console.log(`message: ${data.msg}`);
         tech.in(data.room).emit('message', data.msg)

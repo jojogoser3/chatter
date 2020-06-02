@@ -1,0 +1,52 @@
+.content {
+    display: flex;
+    .content-inner {
+        padding: 0px;
+        width: 100%;
+        height: calc(100vh - 220px);
+
+        .users {
+            width: 100%;
+            display: flex;
+            flex-flow: row;
+            flex-wrap: wrap;
+            padding: 100px 0px 0px 7.6%;
+            .user {
+                margin-bottom: 20px;
+                width: 30%;
+                flex-wrap: wrap;
+                margin-right: 20%;
+                justify-content: space-between;
+                max-height: 30px;
+                
+                .user-name {
+                    color: black;
+                    
+
+                    p {
+                        margin-right: 7px;
+                        font-size: 22px;
+                        font-weight: bold;
+                    }
+
+                    .status {}
+                }
+
+                .cur-room {
+                    color: #757575;
+                    font-size: 14px;
+                }             
+            } 
+            
+        }
+    }
+
+    .sidebar {
+        p {
+            color: white;
+            font-size: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+    }
+}
