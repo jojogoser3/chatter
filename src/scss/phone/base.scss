@@ -4,17 +4,33 @@
 .container {
     background: #292929;
 
+// Base styling header
     header {
         padding: 0px 35px;
         justify-content: center;
         text-align: center;
 
         .page-back {
-            position: absolute;
             left: 5%;
-            background: red;
+        }
+
+        .dropdown {
+            right: 9%;
+
+            .fa-times {
+                display: none;
+            }
+        }
+
+        .page-back, .dropdown {
+            position: absolute;
             height: 32px;
             width: 32px;
+            color: white;
+
+            i {
+                font-size: 25px;
+            }
         }
 
         .head-title {
@@ -30,13 +46,7 @@
             }
         }
 
-        .dropdown {
-            position: absolute;
-            right: 9%;
-            background: red;
-            width: 32px;
-            height: 32px;
-        }
+        
 
         nav {
             display: none;
@@ -58,16 +68,46 @@
         }
     }
 
+    // Base styling content
     .content {
         padding: 35px 25px 0px 25px;
-        .content-inner {
-
+        .content-inner  {
         }
-        .sidebar {
+        
+        #content-rooms {
             display: none;
-            
+        }
+        .sidebar-users {
+            display: none;
         }
     }
 
-    .footer {}
+    // Base styling footer
+    footer {
+        .bttns-footer{
+            display: flex;
+            flex-flow: row;
+            justify-content: space-between;
+            padding: 30px 12.3%;
+            .footer-bttn {
+                color: #707070;
+                i {
+                    transition: 0.3s;
+                    font-size: 25px;
+                }
+                i:hover {
+                    color: #0875de;
+                    cursor: pointer;
+                    transition: 0.3s;
+                }
+                .selected {
+                    color: #0875de;
+                    transition: 0.7s;
+                }
+            }
+        }
+        .footer-input {
+            display: none;
+        }
+    }
 }

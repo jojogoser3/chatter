@@ -8,6 +8,12 @@
         padding: 0px 5%;
         justify-content: space-between;
 
+        // dropdown, go-back button removed
+        .page-back, .dropdown {
+            display: none;
+            text-decoration: none;
+        }
+
         .head-title {
             align-items: baseline;
 
@@ -58,7 +64,7 @@
           
         }
 
-        .sidebar {
+        #sidebar {
             background: #3e3e3e;
             height: 100%;
             max-width: 555px;
@@ -68,5 +74,12 @@
         }
     }
 
-    .footer {}
+    footer {
+        .bttns-footer{
+            display: none;
+             .footer-bttn {
+                 
+             }
+         }
+    }
 }

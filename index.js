@@ -27,12 +27,17 @@ app.get('/', (req, res) => {
 
 app.get('/chatrooms', (req, res) => {
     //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-    res.render('login', { layout: 'index' });
+    res.render('chatrooms', { layout: 'index', title: 'Chatrooms', main: 'false', page: 'chatrooms' });
+});
+
+app.get('/chats', (req, res) => {
+    //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
+    res.render('chats', { layout: 'index' , title: 'Chatname', main: 'false', page: 'chats' });
 });
 
 app.get('/users', (req, res) => {
     //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-    res.render('users', { layout: 'index' });
+    res.render('users', { layout: 'index', title: 'Users', main: 'true', page: 'users' });
 });
 
 
@@ -44,17 +49,18 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/main.html');
 })
 
-// app.get('/javascript', (req, res) => {
-//     res.sendFile(__dirname + '/public/javascript.html');
-// })
+app.get('/rooms/javascript', (req, res) => {
+    res.sendFile(__dirname + '/public/javascript.html');
+})
 
-// app.get('/css', (req, res) => {
-//     res.sendFile(__dirname + '/public/css.html');
-// })
+app.get('/rooms/css', (req, res) => {
+    res.sendFile(__dirname + '/public/css.html');
+})
 
-// app.get('/swift', (req, res) => {
-//     res.sendFile(__dirname + '/public/swift.html');
-// })
+app.get('/chatrooms/swift', (req, res) => {
+    //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
+    res.render('rooms/swift', { layout: 'index' , title: 'Chatname' });
+});
 
 // tech namespace
 const tech = io.of('/tech');

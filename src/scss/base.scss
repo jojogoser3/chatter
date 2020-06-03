@@ -26,18 +26,10 @@
         display: flex;
         align-items: center;
 
-        .page-back {
-            position: absolute;
-        }
-
         .head-title {
             display: flex;
 
             .sub-title {}
-        }
-
-        .dropdown {
-            position: absolute;
         }
 
         nav {
@@ -136,5 +128,9 @@
         min-height: 110px;
         background: #1f1f1f;
         border-radius: 15px 15px 0px 0px;
+
+        
+
+        
     }
 }
