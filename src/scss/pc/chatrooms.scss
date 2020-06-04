@@ -1,0 +1,90 @@
+// styling for the sidebar with rooms for >>PC<<
+.content {
+    .sidebar-rooms {
+        padding: 35px;
+        align-items: center;
+
+        .room {
+            max-width: 380px;
+            width: 100%;
+            padding: 20px 30px 30px 30px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+
+            &:hover:not(.selected) {
+                background: #515151 !important;
+            }
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        
+        .selected {
+            background: #007EF4;
+
+            .room-text {
+                .room-name {
+
+                }
+                .last-message {
+                    color: #8cb7e1 !important;
+                }
+            }   
+            .room-users {
+                color: white !important;
+            }
+            
+        }
+
+    }
+    .content-inner {
+        .chats {
+            
+
+            .message-block {
+                margin-top: 30px;
+                    padding: 25px;
+                    max-width: 803px;
+                    width: 100%;
+
+                .message-info {
+                  
+
+                    .message-username {
+                       margin-right: 4px;
+                            font-size: 21px;
+                    }
+
+                    .message-said {
+                        margin-right: 4px;
+                        font-size: 16px;
+                    }
+
+                    .message-time {
+                        margin-right: 4px;
+                        font-size: 16px;
+                    }
+                } .message {
+                   
+                }
+
+            }
+            .other-user {
+                background: $blue;
+                align-self: flex-end;
+                border-top-right-radius: 20px;
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 0px;
+            }
+        }
+    }
+}
+
+footer {
+    .input-footer {
+        margin-left: 41.5%;
+        margin-right: 30px;
+    }
+}

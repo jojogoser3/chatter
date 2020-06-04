@@ -1,3 +1,5 @@
+$blue : #007EF4;
+
 @media only screen and (min-width: 751px) {
     @import 'pc/base.scss';
 }
@@ -7,13 +9,30 @@
 }
 
 
-
+// some common lines
 *,
 ::after,
 ::before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+}
+
+// no longer a scrollbar and a font added
+*::-webkit-scrollbar {
+    display: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+// font removed from ALL the icons
+*:not(i) {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+// ALL buttons have no border
+button {
+    border: none !important;
 }
 
 .container {
@@ -52,8 +71,10 @@
                     }
                 }
 
+                // If an item from nav is selected in >>PC and PHONE<< //
+
                 .selected {
-                    background: #1a78d0;
+                    background: $blue;
 
                     a {
                         color: white;
@@ -68,7 +89,9 @@
     }
 
     .content {
-        min-height: calc(100vh - 220px);
+        height: calc(100vh - 220px);
+
+        // Some content fixes for >>PC and PHONE<< //
 
         .submit:hover {
             cursor: pointer;
@@ -82,17 +105,23 @@
             border: none;
         }
 
+        // All base styling for the inner content for both >>PC AND PHONE<< //
+
         .content-inner {
+            height: 100%;
+            overflow-y: auto;
+
             .users {
-                
+
                 .user {
-                    display: flex;   
-                    align-items: center;      
+                    display: flex;
+                    align-items: center;
 
                     .user-name {
                         justify-content: space-between;
                         display: flex;
                         align-items: center;
+
                         .status {
                             width: 13px;
                             height: 13px;
@@ -114,23 +143,133 @@
                         }
 
                     }
+
                     .room-cur {
                         color: #333333;
                     }
+                }
+
+                // base styling for the chats\
+
+            }
+
+            .chats {
+                height: 100%;
+                padding: 35px;
+                display: flex;
+                flex-flow: column-reverse;
+
+                .message-block {
+                    background: #373737;
+                    display: flex;
+                    flex-flow: column;
+                    border-top-right-radius: 20px;
+                    border-top-left-radius: 20px;
+                    border-bottom-right-radius: 20px;
+
+
+                    .message-info {
+                        display: flex;
+                        align-items: baseline;
+
+                        .message-username {
+                            color: white;
+                            font-weight: bold;
+                        }
+
+                        .message-said {
+                            color: grey;
+                            
+                        }
+
+                        .message-time {
+                            color: grey;
+                            
+                        }
+                    } .message {
+                        color: white;
+                        margin-top: 15px;
+                    }
+
+                }
+                .other-user {
+                    background: $blue;
+                    align-self: flex-end;
+                    border-top-right-radius: 20px;
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                    border-bottom-right-radius: 0px;
+                }
+            }
+        }
+
+        #sidebar {
+            height: 100%;
+        }
+    }
+
+
+
+    // sidebar styling for pc & desktop
+
+    .sidebar-rooms {
+        display: flex;
+        flex-flow: column;
+        overflow-y: auto;
+
+        .room {
+            display: flex;
+            flex-flow: row;
+            justify-content: space-between;
+
+            .room-text {
+                .room-name {
+                    color: white;
+                }
+
+                .last-message {
+                    color: #5F5F5F;
+                    text-overflow: ellipsis;
+                    width: 100%;
+                    max-width: 200px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+            }
+
+            .room-users {
+                color: #CCCCCC;
+
+                i {
+                    margin-left: 3px;
                 }
             }
         }
     }
 
-    
+    // 
+    // Input field for message (includes styling from login stylesheets)
+    // 
 
     footer {
         min-height: 110px;
         background: #1f1f1f;
         border-radius: 15px 15px 0px 0px;
 
-        
+        .input-footer {
+            padding: 25px 15px 0px 15px;
 
-        
+            .input-field-default {
+                padding: 0;
+
+                .enter-message {
+                    max-width: 860px;
+                    width: 100%;
+                    margin-bottom: 0px;
+                    margin-right: 0px;
+                }
+            }
+        }
     }
+
 }

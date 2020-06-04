@@ -1,27 +1,35 @@
-.content-inner {
-    .users {
-
-        .user {
-            justify-content: space-between;    
-            .user-name {
-                color: white;
-                
+.content {
+    .content-inner {
+        height: 100%;
+        .users {
     
-                p {
-    
+            .user {
+                justify-content: space-between;    
+                .user-name {
+                    color: white;
+                    
+        
+                    p {
+        
+                    }
+        
+                    .status {}
                 }
-    
-                .status {}
+        
+                .cur-room {
+                    color: #333333;
+                }
+                &:not(:first-child){
+                    margin-top: 20px;
+                }
             }
-    
-            .cur-room {
-                color: #333333;
-            }
-            &:not(:first-child){
-                margin-top: 20px;
-            }
+           
         }
-       
+        
+    }
+
+    #sidebar {
+
     }
     
 }

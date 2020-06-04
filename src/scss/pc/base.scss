@@ -1,8 +1,11 @@
 @import 'login.scss';
 @import 'users.scss';
+@import 'chatrooms.scss';
 
 .container {
     background: #e3e3e3;
+
+    // header for >>PC<< //
 
     header {
         padding: 0px 5%;
@@ -28,8 +31,7 @@
             }
         }
 
-        .dropdown {}
-
+        // nav for >>PC<< //
         nav {
             ul {
                 display: flex;
@@ -65,11 +67,9 @@
         }
 
         #sidebar {
-            background: #3e3e3e;
             height: 100%;
             max-width: 555px;
             width: 100%;
-            min-height: calc(100vh - 220px);
             background: #3c3c3c;
         }
     }

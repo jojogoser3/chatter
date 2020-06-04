@@ -42,7 +42,10 @@
     <script>
         $(document).ready(function () {
 
-            
+             if ($(window).width() < 750) {
+                 // for the footer input en buttons (temp)
+                    $('.input-footer').hide();
+             }
 
             //selects the current page for the footer and navbar
             var current_page = '{{page}}';
@@ -68,13 +71,18 @@
 
             var status = 0;
 
-            $('.link').click(function(){
+            $('.room').click(function(){
 
                 status++;
 
                 if ($(window).width() > 750) {
                     
                 } else {   
+
+                    // for the footer input en buttons (temp)
+                    $('.input-footer').show();
+                    $('.bttns-footer').hide();
+
                      $('#sidebar').hide();
                     $('.content-inner').show();
                 }
@@ -83,9 +91,21 @@
             $(window).resize(function () {
                 if ($(window).width() > 750) {
                     $('#sidebar').show();
-
+                    // for the footer input en buttons (temp)
+                    
+             
+                    
                         
                 } else {
+                    // for the footer input en buttons (temp)
+                    if($('.sidebar-rooms').is(":visible")){
+
+                    } else {
+                        $('.bttns-footer').show();
+                    }
+                    //$('.input-footer').hide();
+             
+
                     if($('.inner-content').is(":visible")){
                             $('#sidebar').hide();
                         } else {

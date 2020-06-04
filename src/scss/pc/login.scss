@@ -1,5 +1,5 @@
-.content {
-    .login {
+.content, footer {
+    .login, .input-field-default {
         flex-flow: row;
         display: flex;
         padding: 211px 13% 0px 23%;
@@ -7,7 +7,7 @@
         flex-wrap: wrap;
         width: 100%;
 
-        .enter-nickname {
+        .enter-nickname, .enter-message {
             max-width: 380px;
             width: 100%;
             margin-right: 21%;
@@ -31,7 +31,7 @@
                     }
 
                     .submit {
-                        background: #047dee;
+                        background: $blue;
                         border-radius: 40px;
                         margin-right: 10px;
                         display: flex;

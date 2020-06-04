@@ -1,5 +1,6 @@
 @import 'login.scss';
 @import 'users.scss';
+@import 'chatrooms.scss';
 
 .container {
     background: #292929;
@@ -70,7 +71,7 @@
 
     // Base styling content
     .content {
-        padding: 35px 25px 0px 25px;
+        padding: 35px 25px 35px 25px;
         .content-inner  {
         }
         
@@ -96,12 +97,12 @@
                     font-size: 25px;
                 }
                 i:hover {
-                    color: #0875de;
+                    color: $blue;
                     cursor: pointer;
                     transition: 0.3s;
                 }
                 .selected {
-                    color: #0875de;
+                    color: $blue;
                     transition: 0.7s;
                 }
             }

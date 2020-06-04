@@ -1,0 +1,58 @@
+.content {
+    .sidebar-rooms {
+        align-items: center;
+
+        .room {
+            width: 100%;
+            margin-bottom: 40px;
+            
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+    }
+
+    .content-inner {
+        .chats {
+          
+
+            .message-block {
+                margin-top: 30px;
+                padding: 25px;
+                max-width: 264px;
+                width: 100%;
+
+                .message-info {
+                  
+
+                    .message-username {
+                      font-size: 12px;
+                    }
+
+                    .message-said {
+                      
+                    }
+
+                    .message-time {
+                       
+                    }
+                } .message {
+                   font-size: 12px;
+                }
+
+            }
+            .other-user {
+                background: $blue;
+                align-self: flex-end;
+                border-top-right-radius: 20px;
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 0px;
+            }
+        }
+    }
+    }
+
+   
