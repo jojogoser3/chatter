@@ -105,6 +105,12 @@ button {
             border: none;
         }
 
+        .login {
+            .form-fail-text {
+                display: none;
+            }
+        }
+
         // All base styling for the inner content for both >>PC AND PHONE<< //
 
         .content-inner {
