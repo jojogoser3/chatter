@@ -52,27 +52,29 @@
             const socket = io('/tech');
 
             // does a token check if page is loaded
-            var currentToken = localStorage.getItem('token');
+            let currentToken = localStorage.getItem('token');
             socket.emit('tokenCheck', { currentToken });
 
             socket.on('token_result', (token_state) => {
                 if (token_state) {
 
                 } else {
-                    window.location.pathname = '/';
-                }
-            })
-
-            socket.on('token_result', (token_state) => {
-                if (token_state) {
-
-                } else {
-                    window.location.pathname = '/';
+                    // window.location.pathname = '/';
                 }
             })
 
             socket.on('users', (allusers, usersonline) => {
-                $('.online-users').append(usersonline);
+                $('.online-users').prepend(usersonline);
+                for (let i = 0; i < allusers.length; ++i) {
+                    $('.users').append('<div class="user"><div class="user-name"><div class="status online"></div><p>'+ allusers[i] +'</p></div><div class="cur-room">Chilled piece</div></div>');
+                    //console.log(allusers[i]);
+                }
+            })
+
+            socket.on('current_user', (this_user) => {
+                console.log(this_user);
+                $('h1').prepend(this_user);
+               
             })
             
         });

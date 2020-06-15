@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
-
-    <script src="./assets/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+  
 </head>
 
 <body>
@@ -52,15 +54,13 @@
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
     </script>
     <script src="/socket.io/socket.io.js"></script>
 
-    <script>
+       <script>
         $(document).ready(function () {
             const socket = io('/tech');
 
@@ -77,15 +77,16 @@
             })
 
             // set token if not already made
-            socket.on('token', (token_id) => {
-                localStorage.setItem('token', token_id);
-                socket.emit('tokenCheck', {  token_id  });
+            socket.on('token', (currentToken) => {
+                localStorage.setItem('token', currentToken );
+                socket.emit('tokenCheck', {  currentToken });
                 // window.location.pathname = '/users';
             })
 
+
             socket.on('token_result', (token_state) => {
                 if(token_state){
-                    window.location.pathname = '/users';
+                    // window.location.pathname = '/users';
                 } else {
 
                 }

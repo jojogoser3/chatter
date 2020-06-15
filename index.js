@@ -84,14 +84,11 @@ app.get('/chatrooms/swift', (req, res) => {
     res.render('rooms/swift', { layout: 'index', title: 'Chatname' });
 });
 
-var user = { user_name: "" };
 
 // tech namespace
 const tech = io.of('/tech');
 
 tech.on('connection', (socket) => {
-
-
 
     socket.on('join', (data) => {
         socket.join(data.room);
@@ -99,12 +96,12 @@ tech.on('connection', (socket) => {
     })
 
     socket.on('tokenCheck', (token) => {
-        console.log('check check');
-        
+        console.log(token);
         // makes token from object to string
         let current_token = JSON.stringify(token.currentToken);
-        let correct_token = current_token.replace(/['"]+/g, '');
 
+        let correct_token = current_token.replace(/^"(.+(?="$))"$/, '$1');
+        
         // Check if the token is valid
         db.checkToken(token).then(val => {
             if (val) {
@@ -112,29 +109,28 @@ tech.on('connection', (socket) => {
 
                 // gets all the info about the current user (with the correct_token otherwise it cant search in the db)
                 db.getCurrentUser(correct_token).then(result => {
-
                     let stringified = JSON.stringify(result);
                     let parsedObj = JSON.parse(stringified);
-                    console.log(parsedObj);
+                    tech.to(socket.id).emit('current_user', parsedObj);
                 })
 
                 db.getUsers().then(val => {
                     // all users to strings
                     let result_str = val.map((item) => {
                         let user_data = JSON.stringify(item.user_name);
-                        return user_data;
+                        return user_data.replace(/^"(.+(?="$))"$/, '$1');
                     })
 
                     //  users online now
                      let online_users = result_str.length;
-                     tech.emit('users', result_str, online_users);
+                     tech.to(socket.id).emit('users', result_str, online_users);
                      console.log(val);
-                     tech.emit('token_result', val);
+                     tech.to(socket.id).emit('token_result', val);
                     // if token is not valid it will return the outcome to the client 
                 })}
                 else {
                     console.log('token not here');
-                    tech.emit('token_result', val);
+                    tech.to(socket.id).emit('token_result', val);
                 }
 
         })
@@ -145,12 +141,12 @@ tech.on('connection', (socket) => {
         db.checkUser(data.user).then(val => {
             if (val == true) {
                 db.insertUser(data.user).then(val => {
-                    tech.emit('token', val);
+                    tech.to(socket.id).emit('token', val);
                     console.log('username saved');
                 });
                
             } else {
-                tech.emit('user-taken', 'show');
+                tech.to(socket.id).emit('user-taken', 'show');
             }
         })
 
