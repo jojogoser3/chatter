@@ -1,104 +1,102 @@
 $(document).ready(function () {
-if ($(window).width() < 750) {
-    // for the footer input en buttons (temp)
-       $('.input-footer').hide();
-}
+    if ($(window).width() < 750) {
+        // for the footer input en buttons (temp)
+        $('.input-footer').hide();
+    }
 
+    var content_counter = 0;
 
-//selects the current page for the footer and navbar
-
-if(current_page == "users"){
-   $('.bttn-users').addClass('selected');
-} else if (current_page == "chatrooms"){
-   $('.bttn-chatroom').addClass('selected');
-} else {
-   console.log('page render error')
-}
-
-//return button not displayed
-if($('.page-back').is(':visible')){
-   if(main_page = false){
-       
-   } else {
-       $('.page-back').hide();
-   }
-}
-
-// link to a chat
-
-var status = 0;
-
-$('.room').click(function(){
-
-   status++;
-
-   if ($(window).width() > 750) {
-       
-   } else {   
-
-       // for the footer input en buttons (temp)
-       $('.input-footer').show();
-       $('.bttns-footer').hide();
-
-        $('#sidebar').hide();
-       $('.content-inner').show();
-   }
-})
-
-$(window).resize(function () {
-   if ($(window).width() > 750) {
-       $('#sidebar').show();
-       // for the footer input en buttons (temp)
-       
-
-       
-           
-   } else {
-       // for the footer input en buttons (temp)
-       if($('.sidebar-rooms').is(":visible")){
-
-       } else {
-           $('.bttns-footer').show();
-       }
-       //$('.input-footer').hide();
-
-
-       if($('.inner-content').is(":visible")){
-               $('#sidebar').hide();
-           } else {
-      
-   } 
-   }
-})
-
-
-// dropdown
-var i = 0;
-var nav = $('nav');
-
-$(window).resize(function () {
-   if ($(window).width() > 750) {
-       if(nav.is(":visible")) {
-           console.log('still here fucker')
-       } else {
-           nav.show();
-           console.log('lol');
-       }  
-        if($('.chat').is(":visible")) {
-            alert(1);
+    $('.room').click(function () {
+        // some 
+        content_counter++;
+        
+        if(content_counter == 2){
+            content_counter = 1;
         }
-   }
-});
+        console.log(content_counter);
+        $('.content-inner').show();
+        $('.input-footer').show();
 
-$('.dropdown').click(function (e) {
-   nav.toggle()
-   $(this).find('.fa-bars').toggle();
-  $(this).find('.fa-times').toggle();
-  $('.content, footer').click(function(){
-      nav.hide();
-  })
-  
-})
+       
+        if ($(window).width() > 750) {
+
+        } else {
+
+            // for the footer input en buttons (temp)
+            
+            $('.bttns-footer').hide();
+
+            $('#sidebar').hide();
+            $('.content-inner').show();
+        }
+    })
+
+    $(window).resize(function () {
+        if ($(window).width() > 750) {
+            $('#sidebar').show();
+            
+            // for the footer input en buttons (temp)
+
+            $('.sidebar-rooms').show();
+
+
+        } else {
+            if(content_counter == 1){
+               
+                    $('#sidebar').hide();
+                    $('.bttns-footer').hide();
+                    $('.content-inner').show();
+                
+                
+
+            }
+            // for the footer input en buttons (temp)
+            
+                
+            //     $('.bttns-footer').show();
+            // } else {
+                
+            //     $('#content-rooms').show();
+            // }
+            //$('.input-footer').hide();
+
+
+            if ($('.inner-content').is(":visible")) {
+                $('#sidebar').hide();
+            } else {
+
+            }
+        }
+    })
+
+
+    // dropdown
+    var i = 0;
+    var nav = $('nav');
+
+    $(window).resize(function () {
+        if ($(window).width() > 750) {
+            if (nav.is(":visible")) {
+                console.log('still here fucker')
+            } else {
+                nav.show();
+                console.log('lol');
+            }
+            if ($('.chat').is(":visible")) {
+                alert(1);
+            }
+        }
+    });
+
+    $('.dropdown').click(function (e) {
+        nav.toggle()
+        $(this).find('.fa-bars').toggle();
+        $(this).find('.fa-times').toggle();
+        $('.content, footer').click(function () {
+            nav.hide();
+        })
+
+    })
 
 
 });

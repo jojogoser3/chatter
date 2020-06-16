@@ -35,6 +35,11 @@ button {
     border: none !important;
 }
 
+input:focus {
+    outline: none;
+    width: 100%;
+}
+
 .container {
 
     header {
@@ -97,9 +102,7 @@ button {
             cursor: pointer;
         }
 
-        input:focus {
-            outline: none;
-        }
+        
 
         button {
             border: none;
@@ -164,15 +167,22 @@ button {
                 padding: 35px;
                 display: flex;
                 flex-flow: column-reverse;
+                overflow-y: scroll;
+
+                // .message-block:first-child{
+                //     margin-bottom: auto !important;
+                // }
 
                 .message-block {
+                    
                     background: #373737;
                     display: flex;
                     flex-flow: column;
                     border-top-right-radius: 20px;
                     border-top-left-radius: 20px;
                     border-bottom-right-radius: 20px;
-
+                
+                
 
                     .message-info {
                         display: flex;

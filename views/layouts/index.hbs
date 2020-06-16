@@ -49,6 +49,12 @@
 
     <script>
         $(document).ready(function () {
+            var main_page = '{{main}}';
+            var current_page = '{{page}}';
+
+            let thisroom;
+            let thisuser;
+
             const socket = io('/tech');
 
             // does a token check if page is loaded
@@ -59,27 +65,97 @@
                 if (token_state) {
 
                 } else {
-                    // window.location.pathname = '/';
+                    window.location.pathname = '/';
                 }
             })
 
             socket.on('users', (allusers, usersonline) => {
                 $('.online-users').prepend(usersonline);
                 for (let i = 0; i < allusers.length; ++i) {
-                    $('.users').append('<div class="user"><div class="user-name"><div class="status online"></div><p>'+ allusers[i] +'</p></div><div class="cur-room">Chilled piece</div></div>');
+                    $('.users').append('<div class="user"><div class="user-name"><div class="status online"></div><p>' + allusers[i] + '</p></div><div class="cur-room">Chilled piece</div></div>');
                     //console.log(allusers[i]);
                 }
             })
 
             socket.on('current_user', (this_user) => {
-                console.log(this_user);
-                $('h1').prepend(this_user);
-               
+                // sets the current_users name
+                $('.sub-title').html(this_user);
+
+                //sets the current user
+                thisuser = this_user.toString();
             })
+
             
+
+            $('.room').on('click', function () {
+                var user = $('.sub-title').text();
+                var room = $(this).find('.room-name').text();
+                socket.emit('join', { room: room, user: user });
+
+                // Sets the current room
+                thisroom = room;
+            })  
+            
+            // displays the chats from the room
+            socket.on('display_chats', (all_chats) => {
+
+                $('.chats').find('.message-block').remove();
+
+                for (let i = 0; i < all_chats.length; ++i) {
+                    var this_message = '<div class="message-block"><div class="message-info"><div class="message-username">' + all_chats[i]['user_name'] + '</div><div class="message-said">said @ </div><div class="message-time">' + all_chats[i]['date_time'] + '</div></div><div class="message">' + all_chats[i]['chat_text'] + '</div></div>';
+                    if(this_user = all_chats[i]['user_name']){
+                        console.log('same');
+                    }
+                    $('.chats').prepend(this_message);
+                    //console.log(allusers[i]);
+                }
+                
+            })
+
+            $('.sendmessage').submit(() => {
+                let msg = $('.msg').val();
+                socket.emit('message', { msg: msg, room: thisroom, user: thisuser });
+                console.log(thisuser);
+                $('.msg').val('');
+                return false;
+            })
+
+
+            socket.on('message', (data) => {
+                var d = new Date();
+                var hour = d.getHours();
+                var min = d.getMinutes();
+                $('.chats').prepend('<div class="message-block"><div class="message-info"><div class="message-username">' + data.user + '</div><div class="message-said">said @</div><div class="message-time">'+hour+':'+min+'</div></div><div class="message">' + data.msg + '</div></div>');
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+            if (main_page) {
+                $('.page-back').hide();
+            } else {
+                $('.page-back').show();
+            }
+
+
+            if (current_page == "users") {
+                $('.bttn-users').addClass('selected');
+            } else if (current_page == "chatrooms") {
+                $('.bttn-chatroom').addClass('selected');
+            } else {
+                console.log('page render error')
+            }
+
         });
-            var current_page = '{{page}}';
-            var main_page = '{{main}}';
+
 
     </script>
     <script src="./assets/main.js"></script>

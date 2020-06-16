@@ -41,22 +41,19 @@ app.get('/', (req, res) => {
 app.get('/chatrooms', (req, res) => {
 
     //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-    res.render('chatrooms', { layout: 'index', title: 'Chatrooms', main: 'false', page: 'chatrooms' });
+    res.render('chatrooms', { layout: 'index', title: 'Chatrooms', main: false, page: 'chatrooms' });
 });
 
 app.get('/chats', (req, res) => {
     //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-    res.render('chats', { layout: 'index', title: 'Chatname', main: 'false', page: 'chats' });
+    res.render('chats', { layout: 'index', title: 'Chatname', main: false, page: 'chats' });
 });
 
 
 
 app.get('/users', (req, res) => {
     //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-
-    
-    
-    return res.render('users', { layout: 'index', title: 'Users', main: 'true', page: 'users' });
+    return res.render('users', { layout: 'index', title: 'Users', main: true, page: 'users' });
     // }
 
     // });
@@ -71,18 +68,20 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/main.html');
 })
 
-app.get('/rooms/javascript', (req, res) => {
+app.get('/chatrooms/css', (req, res) => {
     res.sendFile(__dirname + '/public/javascript.html');
 })
 
-app.get('/rooms/css', (req, res) => {
+app.get('/chatrooms/html', (req, res) => {
     res.sendFile(__dirname + '/public/css.html');
 })
 
-app.get('/chatrooms/swift', (req, res) => {
+app.get('/chatrooms', (req, res) => {
     //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-    res.render('rooms/swift', { layout: 'index', title: 'Chatname' });
-});
+    return res.render('chatrooms', { layout: 'index', title: 'Users', main: false, page: 'users', room: 'javascript' });
+    // }
+})
+    // });
 
 
 // tech namespace
@@ -91,15 +90,28 @@ const tech = io.of('/tech');
 tech.on('connection', (socket) => {
 
     socket.on('join', (data) => {
+       
         socket.join(data.room);
-        tech.in(data.room).emit('message', `New user joined ${data.room}`);
+
+            // GET messages
+            db.getChats(data.room).then(val => {
+            console.log(val);
+            
+            // displaying the retrieved data
+            tech.to(socket.id).emit('display_chats', val);
+        
+        })
+        tech.in(data.room).emit('');
+        // tech.in(data.room).emit('message', `New user joined ${data.room}`);
     })
+
+    
 
     socket.on('tokenCheck', (token) => {
         console.log(token);
+
         // makes token from object to string
         let current_token = JSON.stringify(token.currentToken);
-
         let correct_token = current_token.replace(/^"(.+(?="$))"$/, '$1');
         
         // Check if the token is valid
@@ -109,9 +121,15 @@ tech.on('connection', (socket) => {
 
                 // gets all the info about the current user (with the correct_token otherwise it cant search in the db)
                 db.getCurrentUser(correct_token).then(result => {
-                    let stringified = JSON.stringify(result);
-                    let parsedObj = JSON.parse(stringified);
-                    tech.to(socket.id).emit('current_user', parsedObj);
+                    // let stringified = JSON.stringify(result);
+                    // let parsedObj = JSON.parse(stringified);
+
+                    let result_str = result.map((item) => {
+                        let user_data = JSON.stringify(item.user_name);
+                        return user_data.replace(/^"(.+(?="$))"$/, '$1');
+                    })
+                    
+                    tech.to(socket.id).emit('current_user', result_str);
                 })
 
                 db.getUsers().then(val => {
@@ -132,7 +150,14 @@ tech.on('connection', (socket) => {
                     console.log('token not here');
                     tech.to(socket.id).emit('token_result', val);
                 }
+            
+                
+        })
+    })
 
+    socket.on('getChats', (data) => {
+        db.getChats(data.room).then(val => {
+            tech.to(socket.id).emit('display_chats', val);
         })
     })
 
@@ -170,14 +195,29 @@ tech.on('connection', (socket) => {
         // tech.emit('message', 'user disconnected');
     })
 
-    socket.on('message', () => {
-        // console.log(`message: ${data.msg}`);
-        tech.emit('message', 'test');
+    socket.on('message', (data) => {
+        
+        console.log(`message: ${data.user}`);
+        
         // tech.in(data.room).emit('message', data.msg);
+    })
+
+
+    socket.on('message', (data) => {
+        
+        let message = {
+            user: data.user,
+            room: data.room,
+            msg: data.msg,
+        }
+        
+        tech.in(data.room).emit('message', message);
+        console.log(message.user);
+        db.insertChats(message);
     })
 
     socket.on('disconnect', () => {
         
-        tech.emit('message', 'user disconnected');
+        // tech.emit('message', 'user disconnected');
     })
 })

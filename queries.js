@@ -16,7 +16,7 @@ client.connect();
 const insertChats = (request) => {
     const data = request;
     client.query('INSERT INTO chats (user_name, room, chat_text, date_time) VALUES ($1, $2, $3, NOW())',
-        [data.name, data.room, data.text], (error, results) => {
+        [data.user, data.room, data.msg], (error, results) => {
             if (error) {
                 throw error;
             }
@@ -24,14 +24,17 @@ const insertChats = (request) => {
         })
 }
 
-const getChats = new Promise((resolve, reject) => {
-    client.query('SELECT * FROM chats')
+const getChats = (request) => {
+    const room = request;
+    return new Promise((resolve, reject) => {
+    client.query("SELECT * FROM chats WHERE room = '"+room+"' ORDER BY date_time ASC;")
         .then(results => {
+            console.log(room);
             resolve(results.rows);
         })
         .catch(e => console.error(e.stack));
 })
-
+}
 
 const getUsers = () => {
     return new Promise((resolve, reject) => {
