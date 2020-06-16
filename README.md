@@ -1,5 +1,6 @@
 # chatter
 Heroku link: https://daanreede-chatter.herokuapp.com/
+Heroku link outdated (4 weeks ago);
 
 Tasks:
 - Adding photo's to chat functionalities (nice(to-have)
