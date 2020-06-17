@@ -4,8 +4,6 @@ $(document).ready(function () {
         $('.input-footer').hide();
         
     }
-
-
     
     var content_counter = 0;
 
@@ -80,6 +78,14 @@ $(document).ready(function () {
         })
 
     })
+
+    $("input").focus(function(){
+        $('footer').hide();
+    });
+    
+    $("input").blur(function(){
+        $('footer').show();
+    });
 
 
 });
