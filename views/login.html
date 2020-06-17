@@ -36,7 +36,8 @@
                         </div>
                     </form>
                     <div class="form-fail-text">
-                        this nickname already exists. Try another.
+                        Nickname token or doesn't meet the requirements.<br><br>
+                        Nickname needs to be more than 10 letters/digits long.
                     </div> 
                 </div>
                 <div class="login-text">
@@ -72,6 +73,12 @@
             $('form').submit((e) => {
                 e.preventDefault();
                 let user = $('.username').val();
+
+                if (user == '' || user.length < 10) {
+                    $('.msg').attr("placeholder", "Input can't be blank");
+                    $('.form-fail-text').show();
+                    return false;
+                }
                 // localStorage.setItem("key", "value");
                 socket.emit('users', {  user  });
             })
