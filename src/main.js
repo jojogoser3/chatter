@@ -79,13 +79,7 @@ $(document).ready(function () {
 
     })
 
-    $("input").focus(function(){
-        $('footer').hide();
-    });
     
-    $("input").blur(function(){
-        $('footer').show();
-    });
 
 
 });
