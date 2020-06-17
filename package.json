@@ -33,7 +33,6 @@
     "nodemon": "^2.0.3",
     "pg": "^8.2.1",
     "socket.io": "^2.3.0",
-    "swup": "^1.9.0",
     "underscore": "^1.10.2"
   },
   "devDependencies": {

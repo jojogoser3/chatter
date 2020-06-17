@@ -5,7 +5,6 @@ const io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
 const db = require('./queries');
 const bodyParser = require('body-parser');
-const lol = require('swup');
 
 app.use(bodyParser.json());
 
