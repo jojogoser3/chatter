@@ -15,7 +15,7 @@ client.connect();
 
 const insertChats = (request) => {
     const data = request;
-    client.query('INSERT INTO chats (user_name, room, chat_text, date_time) VALUES ($1, $2, $3, NOW())',
+    client.query('INSERT INTO chats (user_name, room, chat_text, date_time) VALUES ($1, $2, $3, NOW());',
         [data.user, data.room, data.msg], (error, results) => {
             if (error) {
                 throw error;

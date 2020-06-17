@@ -2,43 +2,40 @@ $(document).ready(function () {
     if ($(window).width() < 750) {
         // for the footer input en buttons (temp)
         $('.input-footer').hide();
+        
     }
 
+
+    
     var content_counter = 0;
 
+    // if you click a room the layout changes to the chat mode
     $('.room').click(function () {
         // some 
         content_counter++;
-        
+
         if(content_counter == 2){
             content_counter = 1;
         }
-        console.log(content_counter);
+        
         $('.content-inner').show();
         $('.input-footer').show();
-
-       
+    
         if ($(window).width() > 750) {
 
         } else {
-
-            // for the footer input en buttons (temp)
-            
             $('.bttns-footer').hide();
-
             $('#sidebar').hide();
             $('.content-inner').show();
         }
     })
 
+    
+    // the sidebar returns if the width is lower than 750
     $(window).resize(function () {
         if ($(window).width() > 750) {
             $('#sidebar').show();
-            
-            // for the footer input en buttons (temp)
-
             $('.sidebar-rooms').show();
-
 
         } else {
             if(content_counter == 1){
@@ -46,32 +43,21 @@ $(document).ready(function () {
                     $('#sidebar').hide();
                     $('.bttns-footer').hide();
                     $('.content-inner').show();
-                
-                
 
             }
-            // for the footer input en buttons (temp)
-            
-                
-            //     $('.bttns-footer').show();
-            // } else {
-                
-            //     $('#content-rooms').show();
-            // }
-            //$('.input-footer').hide();
-
 
             if ($('.inner-content').is(":visible")) {
+                
                 $('#sidebar').hide();
+                
             } else {
-
+                
             }
         }
     })
 
 
     // dropdown
-    var i = 0;
     var nav = $('nav');
 
     $(window).resize(function () {
@@ -81,9 +67,6 @@ $(document).ready(function () {
             } else {
                 nav.show();
                 console.log('lol');
-            }
-            if ($('.chat').is(":visible")) {
-                alert(1);
             }
         }
     });

@@ -8,6 +8,14 @@ $blue : #007EF4;
     @import 'phone/base.scss';
 }
 
+.body {
+    transition: 0.4s;
+    opacity: 1;
+  }
+  
+  html.is-animating body {
+    opacity: 0;
+  }
 
 // some common lines
 *,
@@ -195,20 +203,22 @@ input:focus {
 
                         .message-said {
                             color: grey;
-                            
+                            margin-left: 4px;
                         }
 
                         .message-time {
                             color: grey;
                             
+                            
                         }
                     } .message {
                         color: white;
                         margin-top: 15px;
+                        word-break: break-word;
                     }
 
                 }
-                .other-user {
+                .this-user {
                     background: $blue;
                     align-self: flex-end;
                     border-top-right-radius: 20px;

@@ -32,18 +32,18 @@
                     }
 
                     .message-said {
-                      
+                        font-size: 12px;
                     }
 
                     .message-time {
-                       
+                        font-size: 12px;
                     }
                 } .message {
                    font-size: 12px;
                 }
 
             }
-            .other-user {
+            .this-user {
                 background: $blue;
                 align-self: flex-end;
                 border-top-right-radius: 20px;
