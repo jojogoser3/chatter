@@ -9,6 +9,13 @@ $(document).ready(function () {
     $('form').submit((e) => {
         e.preventDefault();
         let user = $('.username').val();
+
+        if (user == '' || user.length < 5) {
+            console.log(user.length);
+            $('.msg').attr("placeholder", "Input can't be blank");
+            $('.form-fail-text').show();
+            return false;
+        }
         // localStorage.setItem("key", "value");
         socket.emit('users', {  user  });
     })

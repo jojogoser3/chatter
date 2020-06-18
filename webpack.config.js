@@ -8,6 +8,7 @@ module.exports = {
 	entry: {
 		main: './src/main.js',
 		style: './src/style.js',
+		login: './src/login.js'
 	},
 	output: {
 		path: path.join(__dirname, 'public/assets'),
