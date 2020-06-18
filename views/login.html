@@ -37,7 +37,7 @@
                     </form>
                     <div class="form-fail-text">
                         Nickname token or doesn't meet the requirements.<br><br>
-                        Nickname needs to be more than 10 letters/digits long.
+                        Nickname needs to be more than 5 letters/digits long.
                     </div> 
                 </div>
                 <div class="login-text">
@@ -74,7 +74,7 @@
                 e.preventDefault();
                 let user = $('.username').val();
 
-                if (user == '' || user.length < 10) {
+                if (user == '' || user.length < 5) {
                     console.log(user.length);
                     $('.msg').attr("placeholder", "Input can't be blank");
                     $('.form-fail-text').show();
