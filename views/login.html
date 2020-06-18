@@ -75,6 +75,7 @@
                 let user = $('.username').val();
 
                 if (user == '' || user.length < 10) {
+                    console.log(user.length);
                     $('.msg').attr("placeholder", "Input can't be blank");
                     $('.form-fail-text').show();
                     return false;

@@ -95,7 +95,7 @@ tech.on('connection', (socket) => {
 
             // GET messages
             db.getChats(data.room).then(val => {
-            console.log(val);
+            console.log(typeof(val));
             
             // displaying the retrieved data
             tech.to(socket.id).emit('display_chats', val);
@@ -197,22 +197,22 @@ tech.on('connection', (socket) => {
 
     socket.on('message', (data) => {
         
-        console.log(`message: ${data.user}`);
         
         // tech.in(data.room).emit('message', data.msg);
     })
 
 
     socket.on('message', (data) => {
-        
+
+        let encode_message = data.msg.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
         let message = {
             user: data.user,
             room: data.room,
-            msg: data.msg,
+            msg: encode_message,
         }
         
         tech.in(data.room).emit('message', message);
-        console.log(message.user);
         db.insertChats(message);
     })
 

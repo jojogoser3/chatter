@@ -14,6 +14,8 @@ client.connect();
 // const tech = io.of('/tech');
 
 const insertChats = (request) => {
+    
+   
     const data = request;
     client.query('INSERT INTO chats (user_name, room, chat_text, date_time) VALUES ($1, $2, $3, NOW());',
         [data.user, data.room, data.msg], (error, results) => {
@@ -29,7 +31,7 @@ const getChats = (request) => {
     return new Promise((resolve, reject) => {
     client.query("SELECT * FROM chats WHERE room = '"+room+"' ORDER BY date_time ASC;")
         .then(results => {
-            console.log(room);
+            console.log(results.rows);
             resolve(results.rows);
         })
         .catch(e => console.error(e.stack));
@@ -124,9 +126,10 @@ const checkUser = (request) => {
 
 const insertUser = (user) => {
     return new Promise((resolve, reject) => {
+    user = user.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     const data = user;
     const salt = Str.random();
-
+    
     client.query('INSERT INTO users (user_name, token) VALUES ($1, $2)',
         [data, salt], (error, results) => {
             if (error) {

@@ -61,10 +61,8 @@ $(document).ready(function () {
     $(window).resize(function () {
         if ($(window).width() > 750) {
             if (nav.is(":visible")) {
-                console.log('still here fucker')
             } else {
                 nav.show();
-                console.log('lol');
             }
         }
     });
