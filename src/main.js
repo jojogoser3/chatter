@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-     
+
     let thisroom;
     let thisuser;
 
@@ -12,23 +12,26 @@ $(document).ready(function () {
 
     socket.on('token_result', (token_state) => {
         if (token_state) {
-
+            // if token is valid then the user is set to ONLINE
+            let thistoken = localStorage.getItem("token");
+            socket.emit('userisonline', thistoken);
         } else {
             window.location.pathname = '/';
         }
     })
 
     socket.on('users', (allusers, usersonline) => {
+        console.log(allusers[1]);
         $('.online-users').prepend(usersonline);
         for (let i = 0; i < allusers.length; ++i) {
-            $('.users').append('<div class="user"><div class="user-name"><div class="status online"></div><p>' + allusers[i] + '</p></div><div class="cur-room">Chilled piece</div></div>');
+            $('.users').append('<div class="user"><div class="user-name"><div class="status ' + allusers[i].status + '"></div><p>' + allusers[i].user_name + '</p></div><div class="cur-room">Chilled piece</div></div>');
             //console.log(allusers[i]);
         }
     })
 
     socket.on('current_user', (this_user) => {
         // sets the current_users name
-        
+
         $('.sub-title').html(this_user);
 
         //sets the current user
@@ -47,11 +50,16 @@ $(document).ready(function () {
 
         if ($('.sidebar').is(":visible")) {
             $('.page-back').show();
-            
+
         } else {
             $('.page-back').attr("href", "/chatrooms");
         }
     })
+
+    // socket.on('usersinroom', (data) => {
+    //     $('')
+
+    // })
 
     // displays the chats from a specific room
     socket.on('display_chats', (all_chats) => {
@@ -67,8 +75,6 @@ $(document).ready(function () {
             var min = date.getMinutes();
             if (min < 10) {
                 min = '0' + min;
-            } else {
-
             }
             if (thisuser == all_chats[i]['user_name']) {
                 var this_message = '<div class="message-block this-user"><div class="message-info"><div class="message-username">' + all_chats[i]['user_name'] + '</div><div class="message-said">said @ </div><div class="message-time">' + hour + ':' + min + '</div></div><div class="message">' + all_chats[i]['chat_text'] + '</div></div>';
@@ -87,14 +93,10 @@ $(document).ready(function () {
             $('.msg').attr("placeholder", "Input can't be blank");
             return false;
         } else {
-            
             socket.emit('message', { msg: msg, room: thisroom, user: thisuser });
-            
             $('.msg').val('');
             return false;
         }
-
-
     })
 
     // Here the message will be displayed with the result from the server
@@ -109,11 +111,85 @@ $(document).ready(function () {
         }
     })
 
-    // logout deletes the token and reloads the page to '/'
-    $('.logout').click(function () {
-        localStorage.removeItem('token');
-        location.reload();
+    ////////////////////////////////////////////////////////
+    ////////////////USER STATUS////////////////////////////
+    ////////////////////////////////////////////////////////
+
+    // sends the current token to the server where it gets deleted
+    $('.logout').click((e) => {
+        e.preventDefault();
+        let thistoken = localStorage.getItem("token");
+        socket.emit('deleteuser', thistoken);
     })
+
+    // removes the current token from the localstorage
+    socket.on('userlogout', (data) => {
+        if (data) {
+            localStorage.removeItem("token");
+            location.reload();
+        } else {
+            console.log('failed to logout')
+        }
+    })
+
+    socket.on('useraway', (data) => {
+        $('.user-name').each(function () {
+            if ($(this).find('p').text() == thisuser) {
+                $(this).find('.status').removeClass('online').addClass('away');
+            }
+        })
+
+    })
+
+    socket.on('useronline', (data) => {
+        $('.user-name').each(function () {
+            if ($(this).find('p').text() == thisuser) {
+                $(this).find('.status').removeClass('away').addClass('online');
+            }
+        })
+    })
+
+
+
+
+    var timeout = null;
+    let count = 0;
+
+    $(document).bind("mousemove keypress", () => {
+        count++;
+        let thistoken = localStorage.getItem("token");
+
+        // user status moves mouse again the status is set to online
+        if (timeout !== null) {
+            if (count == 1) {
+                socket.emit('userisonline', thistoken);
+                console.log('fewffwefewfewf')
+            }
+            clearTimeout(timeout);
+        }
+
+        // user status set to away after 15 minutes of being idle
+        timeout = setTimeout(() => {
+            console.log('idle')
+            count = 0;
+            socket.emit('userisaway', thistoken);
+        }, 90000);
+
+
+        // let useraway = setTimeout(() => {
+
+        // }, 3000)
+    })
+    $(window).bind('beforeunload', function () {
+        let thistoken = localStorage.getItem("token");
+        socket.emit('userisoffline', thistoken);
+    });
+
+
+
+
+
+
 
     // fixes the return button for the chatrooms page
     if (current_page == "chatrooms") {
@@ -152,9 +228,9 @@ $(document).ready(function () {
     if ($(window).width() < 750) {
         // for the footer input en buttons (temp)
         $('.input-footer').hide();
-        
+
     }
-    
+
     var content_counter = 0;
 
     // if you click a room the layout changes to the chat mode
@@ -162,13 +238,13 @@ $(document).ready(function () {
         // some 
         content_counter++;
 
-        if(content_counter == 2){
+        if (content_counter == 2) {
             content_counter = 1;
         }
-        
+
         $('.content-inner').show();
         $('.input-footer').show();
-    
+
         if ($(window).width() > 750) {
 
         } else {
@@ -178,7 +254,7 @@ $(document).ready(function () {
         }
     })
 
-    
+
     // the sidebar returns if the width is lower than 750
     $(window).resize(function () {
         if ($(window).width() > 750) {
@@ -186,20 +262,20 @@ $(document).ready(function () {
             $('.sidebar-rooms').show();
 
         } else {
-            if(content_counter == 1){
-               
-                    $('#sidebar').hide();
-                    $('.bttns-footer').hide();
-                    $('.content-inner').show();
+            if (content_counter == 1) {
+
+                $('#sidebar').hide();
+                $('.bttns-footer').hide();
+                $('.content-inner').show();
 
             }
 
             if ($('.inner-content').is(":visible")) {
-                
+
                 $('#sidebar').hide();
-                
+
             } else {
-                
+
             }
         }
     })
@@ -229,6 +305,6 @@ $(document).ready(function () {
 
 
 
-    
+
 
 });

@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 const handlebars = require('express-handlebars');
+const { emit } = require('process');
 
 // db.getChats.then(res => console.log(res)).catch(err => console.log(err));
 
@@ -26,12 +27,7 @@ app.engine('hbs', handlebars({
 
 
 
-// app.engine('handlebars', handlebars({
-//     helpers: {
-//         get_length: function (obj) { alert(1) }
-//     }
-// }))
-// var user = new Array;
+
 
 // renders the login page (wich)
 app.get('/', (req, res) => {
@@ -81,7 +77,7 @@ app.get('/chatrooms', (req, res) => {
     return res.render('chatrooms', { layout: 'index', title: 'Users', main: false, page: 'users', room: 'javascript' });
     // }
 })
-    // });
+// });
 
 
 // tech namespace
@@ -90,22 +86,24 @@ const tech = io.of('/tech');
 tech.on('connection', (socket) => {
 
     socket.on('join', (data) => {
-       
+
         socket.join(data.room);
 
-            // GET messages
-            db.getChats(data.room).then(val => {
-            console.log(typeof(val));
-            
+        // GET messages
+        db.getChats(data.room).then(val => {
+
             // displaying the retrieved data
             tech.to(socket.id).emit('display_chats', val);
-        
+
         })
         tech.in(data.room).emit('');
+
+        // console.log(userinroom);
+        // tech.emit('usersinroom', userinroom);
         // tech.in(data.room).emit('message', `New user joined ${data.room}`);
     })
 
-    
+
 
     socket.on('tokenCheck', (token) => {
         console.log(token);
@@ -113,11 +111,11 @@ tech.on('connection', (socket) => {
         // makes token from object to string
         let current_token = JSON.stringify(token.currentToken);
         let correct_token = current_token.replace(/^"(.+(?="$))"$/, '$1');
-        
+
         // Check if the token is valid
         db.checkToken(token).then(val => {
             if (val) {
-                console.log('token here');        
+                console.log('token here');
 
                 // gets all the info about the current user (with the correct_token otherwise it cant search in the db)
                 db.getCurrentUser(correct_token).then(result => {
@@ -128,30 +126,38 @@ tech.on('connection', (socket) => {
                         let user_data = JSON.stringify(item.user_name);
                         return user_data.replace(/^"(.+(?="$))"$/, '$1');
                     })
-                    
+
                     tech.to(socket.id).emit('current_user', result_str);
                 })
 
                 db.getUsers().then(val => {
+                    console.log(val);
                     // all users to strings
-                    let result_str = val.map((item) => {
-                        let user_data = JSON.stringify(item.user_name);
-                        return user_data.replace(/^"(.+(?="$))"$/, '$1');
-                    })
+                    // let this_user = val.map((item) => {
+                    //     let user_data = JSON.stringify(item.user_name);
+                    //     return user_data.replace(/^"(.+(?="$))"$/, '$1');
+                    // })
+
+                    // let this_status = val.map((item) => {
+                    //     let user_status = JSON.stringify(item.status);
+                    //     return user_status.replace(/^"(.+(?="$))"$/, '$1');
+                    // })
+
+                    // let users = { user: this_user, status: this_status };
 
                     //  users online now
-                     let online_users = result_str.length;
-                     tech.to(socket.id).emit('users', result_str, online_users);
-                     console.log(val);
-                     tech.to(socket.id).emit('token_result', val);
-                    // if token is not valid it will return the outcome to the client 
-                })}
-                else {
-                    console.log('token not here');
+                    let online_users = val.length;
+                    tech.to(socket.id).emit('users', val, online_users);
                     tech.to(socket.id).emit('token_result', val);
-                }
-            
-                
+                    // if token is not valid it will return the outcome to the client 
+                })
+            }
+            else {
+                console.log('token not here');
+                tech.to(socket.id).emit('token_result', val);
+            }
+
+
         })
     })
 
@@ -169,11 +175,13 @@ tech.on('connection', (socket) => {
                     tech.to(socket.id).emit('token', val);
                     console.log('username saved');
                 });
-               
+
             } else {
                 tech.to(socket.id).emit('user-taken', 'show');
             }
         })
+
+
 
 
         //    alldata.then(res => console.log(res)).catch(err => console.log(err));
@@ -195,9 +203,40 @@ tech.on('connection', (socket) => {
         // tech.emit('message', 'user disconnected');
     })
 
+    // removes the current user
+    socket.on('deleteuser', (data) => {
+        db.deleteUser(data).then(req => {
+            if (req == true) {
+                console.log(req);
+                tech.to(socket.id).emit('userlogout', req);
+            } else {
+                console.log('userlogout failed')
+            }
+
+        })
+    })
+
+    socket.on('userisaway', (data) => {
+        db.userAway(data).then(req => {
+            tech.to(socket.id).emit('useraway', req);
+        })
+    })
+
+    socket.on('userisonline', (data) => {
+        db.userOnline(data).then(req => {
+            tech.to(socket.id).emit('useronline', req);
+        })
+    })
+
+    socket.on('userisoffline', (data) => {
+        db.userOffline(data).then(req => {
+            tech.to(socket.id).emit('useroffline', req);
+        })
+    })
+
     socket.on('message', (data) => {
-        
-        
+
+
         // tech.in(data.room).emit('message', data.msg);
     })
 
@@ -211,13 +250,12 @@ tech.on('connection', (socket) => {
             room: data.room,
             msg: encode_message,
         }
-        
+
         tech.in(data.room).emit('message', message);
         db.insertChats(message);
     })
 
-    socket.on('disconnect', () => {
-        
-        // tech.emit('message', 'user disconnected');
-    })
+
+
+
 })
