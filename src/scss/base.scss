@@ -11,11 +11,11 @@ $blue : #007EF4;
 .body {
     transition: 0.4s;
     opacity: 1;
-  }
-  
-  html.is-animating body {
+}
+
+html.is-animating body {
     opacity: 0;
-  }
+}
 
 // some common lines
 *,
@@ -110,7 +110,7 @@ input:focus {
             cursor: pointer;
         }
 
-        
+
 
         button {
             border: none;
@@ -182,15 +182,15 @@ input:focus {
                 // }
 
                 .message-block {
-                    
+
                     background: #373737;
                     display: flex;
                     flex-flow: column;
                     border-top-right-radius: 20px;
                     border-top-left-radius: 20px;
                     border-bottom-right-radius: 20px;
-                
-                
+
+
 
                     .message-info {
                         display: flex;
@@ -208,16 +208,19 @@ input:focus {
 
                         .message-time {
                             color: grey;
-                            
-                            
+
+
                         }
-                    } .message {
+                    }
+
+                    .message {
                         color: white;
                         margin-top: 15px;
                         word-break: break-word;
                     }
 
                 }
+
                 .this-user {
                     background: $blue;
                     align-self: flex-end;

@@ -1,26 +1,32 @@
 # chatter
+
 Heroku link: https://daanreede-chatter.herokuapp.com/
-Heroku link outdated (4 weeks ago);
+Heroku link updated - 7/3/2020;
 
 Tasks:
+
 - Adding photo's to chat functionalities (nice-to-have)
 - No particular words (nice-to-have)
 - Add a welcome message
-- Give a room color when selected
-- Users status
 
 Doing:
-- a little clean up to delete unused files and code 
+
+-
 
 Finished:
+
+- Users status
+- Give a room color when selected
+- a little clean up to delete unused files and code
 - Styling
 - inserting and getting data out of db
 
-Bugs: 
-- footer with buttons and input (medium)
-- sidebar dissapearing problems (little)
+Bugs:
+
+-
 
 # How to start
-- npm i 
+
+- npm i
 - npm run dev
 - visit port 3000

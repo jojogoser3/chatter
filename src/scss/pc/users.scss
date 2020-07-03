@@ -1,5 +1,6 @@
 .content {
     display: flex;
+
     .content-inner {
         padding: 0px;
         width: 100%;
@@ -11,6 +12,7 @@
             flex-flow: row;
             flex-wrap: wrap;
             padding: 100px 0px 0px 7.6%;
+
             .user {
                 margin-bottom: 20px;
                 width: 30%;
@@ -18,15 +20,15 @@
                 margin-right: 20%;
                 justify-content: space-between;
                 max-height: 30px;
-                
+
                 .user-name {
                     color: black;
-                    
+
 
                     p {
                         margin-right: 7px;
                         font-size: 22px;
-                        
+
                     }
 
                     .status {}
@@ -35,9 +37,9 @@
                 .cur-room {
                     color: #757575;
                     font-size: 14px;
-                }             
-            } 
-            
+                }
+            }
+
         }
     }
 
@@ -49,8 +51,6 @@
             margin-top: 40px;
         }
     }
-    .footer {
-        
-    }
-}
 
+    .footer {}
+}

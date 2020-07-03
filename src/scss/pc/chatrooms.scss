@@ -15,45 +15,47 @@
             &:hover:not(.selected) {
                 background: #515151 !important;
             }
+
             &:hover {
                 cursor: pointer;
             }
         }
-        
+
         .selected {
             background: #007EF4;
 
             .room-text {
-                .room-name {
+                .room-name {}
 
-                }
                 .last-message {
                     color: #8cb7e1 !important;
                 }
-            }   
+            }
+
             .room-users {
                 color: white !important;
             }
-            
+
         }
 
     }
+
     .content-inner {
         .chats {
-            
+
 
             .message-block {
                 margin-top: 30px;
-                    padding: 25px;
-                    max-width: 803px;
-                    width: 100%;
+                padding: 25px;
+                max-width: 803px;
+                width: 100%;
 
                 .message-info {
-                    
+
 
                     .message-username {
-                       margin-right: 4px;
-                            font-size: 14px;
+                        margin-right: 4px;
+                        font-size: 14px;
                     }
 
                     .message-said {
@@ -65,11 +67,12 @@
                         margin-right: 4px;
                         font-size: 14px;
                     }
-                } .message {
-                   
                 }
 
+                .message {}
+
             }
+
             .this-user {
                 background: $blue;
                 align-self: flex-end;

@@ -8,11 +8,6 @@ const client = new pg.Client({
 const Str = require('@supercharge/strings')
 client.connect();
 
-
-// const Cookies = require('js-cookie');
-// const cookies = require('cookies');
-// const tech = io.of('/tech');
-
 const insertChats = (request) => {
 
 
@@ -84,29 +79,6 @@ const getCurrentUser = (user) => {
             .catch(e => console.error(e.stack))
     });
 }
-// const checkUser = new Promise((resolve, reject) => {
-//     client.query('SELECT (user_name) FROM users')
-//             .then(results => {
-//             const result = results.rows;
-//             if (result.some(user => user.user_name === data.user_name) || data.user_name == '') {
-//                 console.log('username-taken');
-//                 resolve(false);
-//             } else {
-//                 console.log('working')
-//                 resolve(data.user_name);
-//             }
-//             console.log('fe');
-//         })
-//     // .catch(e => console.error(e.stack));
-// })
-
-
-// const insertUser = (request) => {
-//     return new Promise((resolve, reject) => {
-
-//     })
-
-// }
 
 const checkUser = (request) => {
     return new Promise((resolve, reject) => {
@@ -203,30 +175,6 @@ const userOffline = (token) => {
 
 
 
-//             // .catch(e => console.error(e.stack));
-//     }).then(request => {
-//         console.log(request);
-//     })
-
-// }
-//         const checkUser = new Promise((resolve, reject) => {
-//             client.query('SELECT (user_name) FROM users')
-//                 .then(results => {
-//                     const data = results;
-//                     const salt = Str.random();
-
-//                     client.query('INSERT INTO users (user_name, token) VALUES ($1, $2)',
-//                         [data, salt], (error, results) => {
-//                             if (error) {
-//                                 throw error;
-//                             } else {
-
-//                             }
-//                         })
-//                     resolve(results.rows);
-//                 })
-//                 .catch(e => console.error(e.stack));
-//         })
 
 
 
@@ -234,38 +182,6 @@ const userOffline = (token) => {
 
 
 
-
-
-
-
-
-
-
-
-
-// const insertUser = (request) => {
-//     const data = request;
-//     var resultvalue = '';
-//     client.query('SELECT (user_name) FROM users')
-//         .then(results => {
-
-//             const result = results.rows;
-//             if (result.some(user => user.user_name === data.user_name) || data.user_name == '') {
-//                 resultvalue = 'test';
-//                 console.log('poep');
-//             } else {
-//                 client.query('INSERT INTO users (user_name) VALUES ($1)',
-//                     [data.user_name], (error, results) => {
-//                         if (error) {
-//                             throw error;
-//                         }
-
-//                     })
-//             }
-//             done(resultvalue);
-//         })
-
-// }
 
 
 

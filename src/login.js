@@ -3,33 +3,31 @@ $(document).ready(function () {
 
     // does a token check if page is loaded
     var currentToken = localStorage.getItem('token');
-    socket.emit('tokenCheck', {  currentToken });
+    socket.emit('tokenCheck', { currentToken });
 
     // sends user data
     $('form').submit((e) => {
         e.preventDefault();
         let user = $('.username').val();
 
+        // dubble check if the input is 5 characters long
         if (user == '' || user.length < 5) {
-            console.log(user.length);
             $('.msg').attr("placeholder", "Input can't be blank");
             $('.form-fail-text').show();
             return false;
         }
-        // localStorage.setItem("key", "value");
-        socket.emit('users', {  user  });
+        socket.emit('users', { user });
     })
 
     // set token if not already made
     socket.on('token', (currentToken) => {
-        localStorage.setItem('token', currentToken );
-        socket.emit('tokenCheck', {  currentToken });
-        // window.location.pathname = '/users';
+        localStorage.setItem('token', currentToken);
+        socket.emit('tokenCheck', { currentToken });
     })
 
-
+    // if token is valid it will redirect to /users
     socket.on('token_result', (token_state) => {
-        if(token_state){
+        if (token_state) {
             window.location.pathname = '/users';
         } else {
 
@@ -41,15 +39,8 @@ $(document).ready(function () {
         $('.form-fail-text').show();
     })
 
-    // socket.on('connect', () => {
-    //     // emiting to everybody
-    //     socket.emit('join', {
-    //         room: room
-    //     });
-    // })
-
     socket.on('message', (msg) => {
-        
+
     })
 
 });

@@ -1,7 +1,10 @@
 // Styling for login and for the default input field (message input field)
 
-.content, footer {
-    .login, .input-field-default {
+.content,
+footer {
+
+    .login,
+    .input-field-default {
         flex-flow: row;
         display: flex;
         padding: 211px 13% 0px 23%;
@@ -9,7 +12,8 @@
         flex-wrap: wrap;
         width: 100%;
 
-        .enter-nickname, .enter-message {
+        .enter-nickname,
+        .enter-message {
             max-width: 380px;
             width: 100%;
             margin-right: 21%;
@@ -48,10 +52,12 @@
                         }
                     }
                 }
+
                 .user-taken {
                     border: 1px solid red;
                 }
             }
+
             .form-fail-text {
                 text-align: center;
                 margin-top: 15px;
